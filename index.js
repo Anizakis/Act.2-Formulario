@@ -30,15 +30,35 @@ function nextStep(stepNumber) {
 
 // Función para activar un paso específico
 function activateStep(stepNumber) {
-  // Elimina la clase "active" de todos los pasos del stepper
-  steps.forEach(step => step.classList.remove('active'));
+  // Convierte a número por seguridad
+  const currentStep = parseInt(stepNumber);
 
-  // Elimina la clase "active" de todas las secciones del acordeón
+  // Recorre todos los pasos del stepper
+  steps.forEach(step => {
+    const stepIndex = parseInt(step.dataset.step);
+    
+    // Limpia clases anteriores
+    step.classList.remove('active', 'completed');
+
+    // Marca los pasos anteriores como completados
+    if (stepIndex < currentStep) {
+      step.classList.add('completed');
+    }
+
+    // Marca el paso actual como activo
+    if (stepIndex === currentStep) {
+      step.classList.add('active');
+    }
+  });
+
+  // Oculta todas las secciones
   sections.forEach(section => section.classList.remove('active'));
 
-  // Agrega la clase "active" al paso correspondiente
-  document.querySelector(`.step[data-step="${stepNumber}"]`).classList.add('active');
-
-  // Agrega la clase "active" a la sección del acordeón correspondiente
+  // Muestra la sección correspondiente al paso actual
   document.querySelector(`#step-${stepNumber}`).classList.add('active');
+
+  // Actualiza la clase de progreso en el stepper para animar la línea
+  const stepper = document.querySelector('.stepper');
+  stepper.classList.remove('progress-1', 'progress-2', 'progress-3'); // limpia
+  stepper.classList.add(`progress-${stepNumber}`); // aplica
 }

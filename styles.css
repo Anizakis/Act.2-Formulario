@@ -20,13 +20,52 @@ body {
 .stepper {
   display: flex; /* Coloca los pasos en línea */
   justify-content: space-between; /* Centra los pasos horizontalmente */
+  position: relative;
+  height: 42px;
   gap: 20px; /* Espaciado entre pasos */
   margin-bottom: 40px; /* Separación con el acordeón */
+   
 }
+
+.stepper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  right: 1%;
+  height: 7px;
+  background: #ccc;
+  z-index: 0;
+  transform: translateY(-50%);
+}
+
+.stepper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  right: 1%;
+  height: 7px;
+  background: #0056b3; /* color del progreso */
+  z-index: 1;
+  transform: translateY(-50%);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stepper.progress-2::after {
+  width: 50%;
+}
+
+.stepper.progress-3::after {
+  width: 99%;
+}
+
 
 .step {
   width: 42px; /* Tamaño del círculo */
   height: 42px;
+  position:relative;
   background-color: #cfd4da; /* Color por defecto */
   color: white; /* Texto blanco */
   font-weight: bold; /* Texto en negrita */
@@ -34,15 +73,30 @@ body {
   border-radius: 50%; /* Forma circular */
   display: flex;
   align-items: center;
+  z-index: 2;
   justify-content: center;
   cursor: pointer; /* Cambia el cursor al pasar */
-  transition: transform 0.2s, background-color 0.3s; /* Animaciones suaves */
+  transition: transform 0.3s ease, background-color 0.5s ease, color 0.3s ease; /* Animaciones suaves */
+  
 }
 
+.step:hover {
+  background-color: #007bff; /* Azul claro al pasar el ratón */
+  transform: scale(1.1);     /* Efecto de ligera ampliación */
+}
+
+
 .step.active {
-  background-color: #0056b3; /* Color del paso activo */
+  background-color: #007bff; /* Color del paso activo */
   transform: scale(1.15); /* Efecto visual al estar activo */
 }
+
+.step.completed {
+  background-color: #0056b3;
+  transition: background-color 0.3s ease;
+}
+
+
 
 /* Estilos de cada sección del acordeón */
 .accordion-section {
