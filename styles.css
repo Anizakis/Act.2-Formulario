@@ -19,7 +19,7 @@ body {
 /* Estilos del paso a paso (stepper) */
 .stepper {
   display: flex; /* Coloca los pasos en línea */
-  justify-content: center; /* Centra los pasos horizontalmente */
+  justify-content: space-between; /* Centra los pasos horizontalmente */
   gap: 20px; /* Espaciado entre pasos */
   margin-bottom: 40px; /* Separación con el acordeón */
 }
