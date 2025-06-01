@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metadatos y recursos externos -->
+    <meta charset="UTF-8"> <!-- Especifica la codificación de caracteres para el documento -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura un escalado adecuado en dispositivos móviles -->
+    <title>Formulario Nexus</title> <!-- Título de la página web -->
+    <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS externo para estilos -->
+</head>
+<body>
+<div class="container">
+    <!-- Navegación del paso a paso del formulario -->
+    <div class="stepper">
+        <div class="step active" data-step="1">1</div> <!-- Paso 1: Activo por defecto -->
+        <div class="step" data-step="2">2</div> <!-- Paso 2 -->
+        <div class="step" data-step="3">3</div> <!-- Paso 3 -->
+    </div>
+
+    <div class="accordion">
+        <!-- Paso 1: Información personal -->
+        <div class="accordion-section active" id="step-1">
+            <h2>Datos personales</h2> <!-- Título de la sección -->
+            <input type="text" placeholder="Nombre completo" required> <!-- Campo de entrada para el nombre completo -->
+            <input type="email" placeholder="Correo electrónico" required> <!-- Campo de entrada para el correo electrónico -->
+            <fieldset>
+                <legend>Sexo:</legend> <!-- Etiqueta del grupo para la selección de género -->
+                <label>
+                    <input type="radio" name="sexo" value="masculino" required> Masculino <!-- Botón de opción para "Masculino" -->
+                </label>
+                <label>
+                    <input type="radio" name="sexo" value="femenino" required> Femenino <!-- Botón de opción para "Femenino" -->
+                </label>
+                <label>
+                    <input type="radio" name="sexo" value="prefiero-no-informar" required> Prefiero no informar <!-- Botón de opción para "Prefiero no informar" -->
+                </label>
+            </fieldset>
+            <label for="birthdate">Fecha de nacimiento:</label> <!-- Etiqueta para el selector de fecha -->
+            <input type="date" id="birthdate" required> <!-- Selector de fecha para la fecha de nacimiento -->
+            <button onclick="nextStep(2)">Continuar</button> <!-- Botón para avanzar al siguiente paso -->
+        </div>
+
+        <!-- Paso 2: Información de envío -->
+        <div class="accordion-section" id="step-2">
+            <h2>Datos de envío</h2> <!-- Título de la sección -->
+            <input type="text" placeholder="Dirección" required> <!-- Campo de entrada para la dirección -->
+            <input type="text" placeholder="Ciudad" required> <!-- Campo de entrada para la ciudad -->
+            <button onclick="nextStep(3)">Continuar</button> <!-- Botón para avanzar al siguiente paso -->
+        </div>
+        <div class="accordion-section" id="step-3">
+            <h2>Datos de pago</h2> <!-- Título de la sección -->
+            <input type="text" placeholder="Nombre como figura en la tarjeta" required> <!-- Campo de entrada para el nombre del titular de la tarjeta -->
+            <input type="text" placeholder="Número de tarjeta" required> <!-- Campo de entrada para el número de tarjeta -->
+            <input type="text" placeholder="Fecha de vencimiento" required> <!-- Campo de entrada para la fecha de vencimiento de la tarjeta -->
+            <label for="card-type">Tipo de tarjeta:</label> <!-- Etiqueta para la selección del tipo de tarjeta -->
+            <select id="card-type" required> <!-- Menú desplegable para el tipo de tarjeta -->
+                <option value="debito">Débito</option> <!-- Opción para tarjeta de débito -->
+                <option value="credito">Crédito</option> <!-- Opción para tarjeta de crédito -->
+            </select>
+            <button>Finalizar</button> <!-- Botón para finalizar el formulario -->
+        </div>
+    </div>
+</div>
+
+<script src="index.js"></script> <!-- Enlace al archivo JavaScript externo -->
+</body>
+</html>

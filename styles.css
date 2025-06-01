@@ -1,0 +1,118 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Color de fondo */
+}
+.container {
+    max-width: 600px; /* Ancho máximo del contenedor */
+    margin: 20px auto; /* Centrar el contenedor */
+    background: #fff; /* Fondo blanco */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra del contenedor */
+}
+
+/* Estilos del paso a paso */
+.stepper {
+    display: flex; /* Elementos en línea */
+    justify-content: space-between; /* Espaciado entre pasos */
+    margin-bottom: 20px; /* Margen inferior */
+}
+.step {
+    width: 30px; /* Ancho del paso */
+    height: 30px; /* Altura del paso */
+    border-radius: 50%; /* Forma circular */
+    background-color: #ddd; /* Color de fondo por defecto */
+    display: flex; /* Elementos en línea */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+.step.active {
+    background-color: #007bff; /* Color de fondo activo */
+    color: #fff; /* Color del texto activo */
+    transform: scale(1.2); /* Escalar el paso activo */
+}
+.step:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos del acordeón */
+.accordion {
+    border: 1px solid #ddd; /* Borde del acordeón */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Ocultar contenido desbordado */
+}
+.accordion-section {
+    display: none; /* Ocultar sección por defecto */
+    padding: 20px; /* Espaciado interno */
+    animation: fadeIn 0.5s ease; /* Animación de aparición */
+}
+.accordion-section.active {
+    display: block; /* Mostrar sección activa */
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Comenzar con opacidad cero */
+    }
+    to {
+        opacity: 1; /* Terminar con opacidad completa */
+    }
+}
+
+/* Estilos de entrada */
+input, select {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 10px; /* Margen inferior */
+    border: 1px solid #ddd; /* Borde por defecto */
+    border-radius: 4px; /* Bordes redondeados */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+input:focus, select:focus {
+    border-color: #007bff; /* Color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra al enfocar */
+}
+input:hover, select:hover {
+    border-color: #0056b3; /* Color del borde al pasar el mouse */
+}
+input.error, select.error {
+    border-color: #ff0000; /* Color del borde en caso de error */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Sombra en caso de error */
+}
+
+/* Estilos de botones de opción */
+fieldset {
+    margin-bottom: 10px; /* Margen inferior */
+    border: none; /* Sin borde */
+    padding: 0; /* Sin espaciado interno */
+}
+legend {
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 5px; /* Margen inferior */
+}
+label {
+    display: block; /* Mostrar como bloque */
+    margin-bottom: 5px; /* Margen inferior */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+}
+input[type="radio"] {
+    margin-right: 5px; /* Margen derecho */
+}
+
+/* Estilos de botones */
+button {
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
