@@ -1,78 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <!-- Metadatos del documento -->
   <meta charset="UTF-8"> <!-- Especifica la codificación de caracteres -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste responsivo en dispositivos móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Ajuste responsivo en dispositivos móviles -->
   <title>Formulario Nexus</title> <!-- Título de la pestaña -->
   <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS con los estilos -->
 </head>
-<body> 
-<div class="container"> <!-- Contenedor principal centrado -->
-  
-  <!-- Navegación visual del proceso en tres pasos -->
-  <div class="stepper">
-    <div class="step active" data-step="1">1</div> <!-- Paso 1: activo por defecto -->
-    <div class="step" data-step="2">2</div> <!-- Paso 2 -->
-    <div class="step" data-step="3">3</div> <!-- Paso 3 -->
+
+<body>
+  <div class="container"> <!-- Contenedor principal centrado -->
+
+    <!-- Navegación visual del proceso en tres pasos -->
+    <div class="stepper">
+      <div class="step active" data-step="1">1</div> <!-- Paso 1: activo por defecto -->
+      <div class="step" data-step="2">2</div> <!-- Paso 2 -->
+      <div class="step" data-step="3">3</div> <!-- Paso 3 -->
+    </div>
+
+    <div class="accordion"> <!-- Contenedor del formulario tipo acordeón -->
+
+      <!-- Paso 1: Información personal -->
+      <div class="accordion-section active" id="step-1"> <!-- Sección activa por defecto -->
+        <div class="accordion-header">Datos personales</div> <!-- Encabezado visible de la sección -->
+        <div class="accordion-content"> <!-- Contenido expandible -->
+
+          <input type="text" placeholder="Nombre completo" required> <!-- Campo de entrada para el nombre -->
+          <input type="email" placeholder="Correo electrónico" required> <!-- Campo de entrada para el email -->
+
+          <fieldset>
+            <legend>Sexo:</legend> <!-- Leyenda para agrupar los radio buttons -->
+            <div class="radio-group">
+              <label><input type="radio" name="sexo" value="masculino" required>Masculino</label>
+              <!-- Opción masculina -->
+              <label><input type="radio" name="sexo" value="femenino" required>Femenino</label> <!-- Opción femenina -->
+              <label><input type="radio" name="sexo" value="prefiero-no-informar" required>Prefiero no informar</label>
+              <!-- Opción neutral -->
+            </div>
+          </fieldset>
+
+          <label for="birthdate">Fecha de nacimiento:</label> <!-- Etiqueta para el input tipo fecha -->
+          <input type="date" id="birthdate" required> <!-- Campo para seleccionar fecha -->
+
+          <button onclick="nextStep(2)">Continuar</button> <!-- Botón para avanzar al paso 2 -->
+        </div>
+      </div>
+
+      <!-- Paso 2: Información de envío -->
+      <div class="accordion-section" id="step-2">
+        <div class="accordion-header">Datos de envío</div> <!-- Encabezado de la sección -->
+        <div class="accordion-content"> <!-- Contenido expandible del paso 2 -->
+          <input type="text" placeholder="Dirección" required> <!-- Campo para ingresar dirección -->
+          <input type="text" placeholder="Ciudad" required> <!-- Campo para ingresar ciudad -->
+          <button onclick="nextStep(3)">Continuar</button> <!-- Botón para avanzar al paso 3 -->
+        </div>
+      </div>
+
+      <!-- Paso 3: Información de pago -->
+      <div class="accordion-section" id="step-3">
+        <div class="accordion-header">Datos de pago</div> <!-- Encabezado de la sección -->
+        <div class="accordion-content"> <!-- Contenido expandible del paso 3 -->
+          <input type="text" placeholder="Nombre como figura en la tarjeta" required> <!-- Nombre en la tarjeta -->
+          <input type="text" placeholder="Número de tarjeta" required> <!-- Número de la tarjeta -->
+          <input type="text" placeholder="Fecha de vencimiento" required> <!-- Fecha de expiración -->
+
+          <label for="card-type">Tipo de tarjeta:</label> <!-- Etiqueta para el desplegable -->
+          <select id="card-type" required> <!-- Selector de tipo de tarjeta -->
+            <option value="debito">Débito</option> <!-- Opción para tarjeta de débito -->
+            <option value="credito">Crédito</option> <!-- Opción para tarjeta de crédito -->
+          </select>
+
+          <button onclick="finalizarFormulario()">Finalizar</button>
+          <!-- Botón para cerrar el formulario (sin funcionalidad real) -->
+        </div>
+      </div>
+    </div>
+    <div id="mensaje-final" class="mensaje-final oculto">
+      <div class="tick"></div>
+      <p>¡Formulario enviado!</p>
+    </div>
   </div>
 
-  <div class="accordion"> <!-- Contenedor del formulario tipo acordeón -->
-
-    <!-- Paso 1: Información personal -->
-    <div class="accordion-section active" id="step-1"> <!-- Sección activa por defecto -->
-      <div class="accordion-header">Datos personales</div> <!-- Encabezado visible de la sección -->
-      <div class="accordion-content"> <!-- Contenido expandible -->
-
-        <input type="text" placeholder="Nombre completo" required> <!-- Campo de entrada para el nombre -->
-        <input type="email" placeholder="Correo electrónico" required> <!-- Campo de entrada para el email -->
-
-        <fieldset>
-          <legend>Sexo:</legend> <!-- Leyenda para agrupar los radio buttons -->
-          <div class="radio-group">
-            <label><input type="radio" name="sexo" value="masculino" required>Masculino</label> <!-- Opción masculina -->
-            <label><input type="radio" name="sexo" value="femenino" required>Femenino</label> <!-- Opción femenina -->
-            <label><input type="radio" name="sexo" value="prefiero-no-informar" required>Prefiero no informar</label> <!-- Opción neutral -->
-          </div>
-        </fieldset>
-
-        <label for="birthdate">Fecha de nacimiento:</label> <!-- Etiqueta para el input tipo fecha -->
-        <input type="date" id="birthdate" required> <!-- Campo para seleccionar fecha -->
-
-        <button onclick="nextStep(2)">Continuar</button> <!-- Botón para avanzar al paso 2 -->
-      </div>
-    </div>
-
-    <!-- Paso 2: Información de envío -->
-    <div class="accordion-section" id="step-2">
-      <div class="accordion-header">Datos de envío</div> <!-- Encabezado de la sección -->
-      <div class="accordion-content"> <!-- Contenido expandible del paso 2 -->
-        <input type="text" placeholder="Dirección" required> <!-- Campo para ingresar dirección -->
-        <input type="text" placeholder="Ciudad" required> <!-- Campo para ingresar ciudad -->
-        <button onclick="nextStep(3)">Continuar</button> <!-- Botón para avanzar al paso 3 -->
-      </div>
-    </div>
-
-    <!-- Paso 3: Información de pago -->
-    <div class="accordion-section" id="step-3">
-      <div class="accordion-header">Datos de pago</div> <!-- Encabezado de la sección -->
-      <div class="accordion-content"> <!-- Contenido expandible del paso 3 -->
-        <input type="text" placeholder="Nombre como figura en la tarjeta" required> <!-- Nombre en la tarjeta -->
-        <input type="text" placeholder="Número de tarjeta" required> <!-- Número de la tarjeta -->
-        <input type="text" placeholder="Fecha de vencimiento" required> <!-- Fecha de expiración -->
-        
-        <label for="card-type">Tipo de tarjeta:</label> <!-- Etiqueta para el desplegable -->
-        <select id="card-type" required> <!-- Selector de tipo de tarjeta -->
-          <option value="debito">Débito</option> <!-- Opción para tarjeta de débito -->
-          <option value="credito">Crédito</option> <!-- Opción para tarjeta de crédito -->
-        </select>
-
-        <button>Finalizar</button> <!-- Botón para cerrar el formulario (sin funcionalidad real) -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="index.js"></script> <!-- Enlace al script JavaScript para la lógica del formulario -->
+  <script src="index.js"></script> <!-- Enlace al script JavaScript para la lógica del formulario -->
 </body>
+
 </html>

@@ -36,7 +36,7 @@ function activateStep(stepNumber) {
   // Recorre todos los pasos del stepper
   steps.forEach(step => {
     const stepIndex = parseInt(step.dataset.step);
-    
+
     // Limpia clases anteriores
     step.classList.remove('active', 'completed');
 
@@ -44,6 +44,15 @@ function activateStep(stepNumber) {
     if (stepIndex < currentStep) {
       step.classList.add('completed');
     }
+    // Marca las secciones anteriores como completadas
+    sections.forEach(section => {
+      const sectionStep = parseInt(section.id.split('-')[1]);
+      if (sectionStep < currentStep) {
+        section.classList.add('completed-section');
+      } else {
+        section.classList.remove('completed-section');
+      }
+    });
 
     // Marca el paso actual como activo
     if (stepIndex === currentStep) {
@@ -62,3 +71,46 @@ function activateStep(stepNumber) {
   stepper.classList.remove('progress-1', 'progress-2', 'progress-3'); // limpia
   stepper.classList.add(`progress-${stepNumber}`); // aplica
 }
+function finalizarFormulario() {
+  // Oculta stepper y formulario
+  document.querySelector('.stepper').style.display = 'none';
+  document.querySelector('.accordion').style.display = 'none';
+
+  // Muestra el mensaje con animación
+  const mensaje = document.getElementById('mensaje-final');
+  mensaje.classList.remove('oculto');
+  setTimeout(() => {
+    mensaje.classList.add('visible');
+  }, 50);
+
+  // Crear botón "Volver a realizar"
+  const botonVolver = document.createElement('button');
+  botonVolver.textContent = "Volver a realizar";
+  botonVolver.style.marginTop = "20px";
+  
+  // Cuando se clickee, reinicia el formulario y vuelve a mostrar todo
+  botonVolver.onclick = () => {
+    // Ocultar mensaje final
+    mensaje.classList.remove('visible');
+    mensaje.classList.add('oculto');
+
+    // Mostrar stepper y formulario
+    document.querySelector('.stepper').style.display = 'flex';
+    document.querySelector('.accordion').style.display = 'block';
+
+    // Eliminar el botón para no duplicarlo si se vuelve a enviar
+    botonVolver.remove();
+
+    // Reiniciar formulario a paso 1
+    activateStep(1);
+
+    // Opcional: limpiar inputs y estados
+    document.querySelectorAll('input').forEach(input => input.value = '');
+    document.querySelectorAll('input[type=radio]').forEach(radio => radio.checked = false);
+    document.querySelector('select').selectedIndex = 0;
+  };
+
+  // Añadir botón al contenedor del mensaje final
+  mensaje.appendChild(botonVolver);
+}
+
