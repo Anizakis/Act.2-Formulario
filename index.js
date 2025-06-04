@@ -62,6 +62,25 @@ function validarSeccion(sectionEl) {
   /* Todos los inputs y selects dentro de la sección */
   const campos = sectionEl.querySelectorAll('input, select');
 
+  //Antes validación de Radio Button
+  const radiosSexo = sectionEl.querySelectorAll('input[name="sexo"]');
+  const spanErrorSexo = sectionEl.querySelector('fieldset + span.error-text');
+
+  if (radiosSexo.length) {
+    const algunoMarcado = [...radiosSexo].some(r => r.checked);
+    if (!algunoMarcado) {
+      ok = false;
+      radiosSexo.forEach(r => r.classList.add('input-error'));
+      if (spanErrorSexo) {
+        spanErrorSexo.textContent = 'Selecciona una opción.';
+        spanErrorSexo.classList.add('visible');
+      }
+    } else {
+      radiosSexo.forEach(r => r.classList.remove('input-error'));
+      if (spanErrorSexo) spanErrorSexo.classList.remove('visible');
+    }
+  }
+    
   campos.forEach(input => {
     // Span de error justo después del campo (si existe)
     const errorBox =
@@ -92,11 +111,7 @@ function validarSeccion(sectionEl) {
     }
 
     /* Regla para grupo de radios (sexo) */
-    if (input.type === 'radio') {
-      const grupo = sectionEl.querySelectorAll(`input[name="${input.name}"]`);
-      const algunoMarcado = [...grupo].some(r => r.checked);
-      if (!algunoMarcado) mensaje = 'Selecciona una opción.';
-    }
+    if (input.type === 'radio') return;
 
     /* Aplica mensaje / borde si corresponde */
     if (mensaje) {
