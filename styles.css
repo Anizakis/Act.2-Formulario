@@ -24,7 +24,6 @@ body {
   height: 42px;
   gap: 20px; /* Espaciado entre pasos */
   margin-bottom: 40px; /* Separación con el acordeón */
-   
 }
 
 .stepper::before {
@@ -61,11 +60,10 @@ body {
   width: 99%;
 }
 
-
 .step {
   width: 42px; /* Tamaño del círculo */
   height: 42px;
-  position:relative;
+  position: relative;
   background-color: #cfd4da; /* Color por defecto */
   color: white; /* Texto blanco */
   font-weight: bold; /* Texto en negrita */
@@ -77,14 +75,12 @@ body {
   justify-content: center;
   cursor: pointer; /* Cambia el cursor al pasar */
   transition: transform 0.3s ease, background-color 0.5s ease, color 0.3s ease; /* Animaciones suaves */
-  
 }
 
 .step:hover {
   background-color: #007bff; /* Azul claro al pasar el ratón */
-  transform: scale(1.1);     /* Efecto de ligera ampliación */
+  transform: scale(1.1); /* Efecto de ligera ampliación */
 }
-
 
 .step.active {
   background-color: #007bff; /* Color del paso activo */
@@ -94,9 +90,34 @@ body {
 .step.completed {
   background-color: #117000;
   transition: background-color 0.3s ease;
+  color: transparent;
+  position: relative;
 }
 
+.step.completed::before {
+  content: "✔";
+  position: absolute;
+  font-size: 20px;
+  color: white;
+  opacity: 0;
+  transform: scale(0.4) rotate(-90deg);
+  animation: tickIn 0.5s ease-out forwards;
+}
 
+@keyframes tickIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-90deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
 
 /* Estilos de cada sección del acordeón */
 .accordion-section {
@@ -126,9 +147,9 @@ body {
   opacity: 0;
   transform: translateY(-8px);
   transition:
-    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.3s ease-out,
-    transform 0.4s ease-out;
+          max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.3s ease-out,
+          transform 0.4s ease-out;
 }
 
 .accordion-section.active .accordion-content {
@@ -139,9 +160,9 @@ body {
   box-sizing: border-box;
 }
 
-
 /* Estilos para los inputs y selects */
-input, select {
+input,
+select {
   width: calc(100% - 2px); /* Alineación con padding del contenedor */
   padding: 14px;
   margin-bottom: 14px;
@@ -153,7 +174,8 @@ input, select {
   box-sizing: border-box;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: #007bff; /* Borde azul al enfocar */
   outline: none; /* Elimina el borde por defecto del navegador */
 }
@@ -173,16 +195,28 @@ legend {
 /* Grupo de botones de opción (radio buttons) */
 .radio-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-wrap: wrap;               /* Permite saltos en móvil si no cabe */
+  gap: 20px;                     /* Espacio entre opciones */
+  text-align: center;
 }
 
 .radio-group label {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;           /* No se rompe "Prefiero no informar" innecesariamente */
+  line-height: 1.2;
 }
+
+.radio-group input [type="radio"]{
+  margin:0;
+}
+
+.birthdate {
+  font-weight: bold;
+}
+
 
 /* Estilos para los botones */
 button {
@@ -199,41 +233,16 @@ button {
 button:hover {
   background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
 }
-.step.completed {
-  color: transparent;
-  position: relative;
-}
 
-.step.completed::before {
-  content: "✔";
-  position: absolute;
-  font-size: 20px;
-  color: white;
-  opacity: 0;
-  transform: scale(0.4) rotate(-90deg);
-  animation: tickIn 0.5s ease-out forwards;
-}
-
-@keyframes tickIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.4) rotate(-90deg);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.2) rotate(10deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
+/* Secciones completadas del acordeón */
 .accordion-section.completed-section .accordion-header {
   background-color: #e6f9ec;
   color: #2e7d32;
   border: 1px solid #a5d6a7;
   font-weight: bold;
 }
+
+/* Mensaje final */
 .mensaje-final {
   text-align: center;
   margin-top: 40px;
@@ -287,6 +296,7 @@ button:hover {
 .oculto {
   display: none;
 }
+
 #mensaje-final button {
   margin-top: 20px;
   padding: 14px 28px;
@@ -301,4 +311,35 @@ button:hover {
 
 #mensaje-final button:hover {
   background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
+
+/* ──────────────────────────────────────────── */
+/*           Control de errores       */
+/* ──────────────────────────────────────────── */
+
+.input-error {
+  border: 2px solid #e63946 !important; /* borde rojo */
+}
+
+.error-text {
+  color: #e63946;
+  font-size: 0.85rem;
+  margin-top: -6px;
+  margin-bottom: 10px;
+  display: none; /* oculto por defecto */
+}
+
+.error-text.visible {
+  display: block; /* se muestra cuando hay error */
+}
+
+@keyframes pulseError {
+  0%   { transform: scale(1);   box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.30); }
+  50%  { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(230, 57, 70, 0);  }
+  100% { transform: scale(1);   box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+}
+
+/* Aplica la animación dos veces para que sea notoria pero breve */
+.animate-pulse {
+  animation: pulseError 0.45s ease-out 2;
 }
